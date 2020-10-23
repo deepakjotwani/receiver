@@ -14,4 +14,3 @@ spec:
     spec:
       containers:
           - name: sample1
-            image: sample1-image   # overridden by kustomize
