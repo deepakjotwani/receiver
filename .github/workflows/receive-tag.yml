@@ -1,0 +1,14 @@
+name: Receive latest tag on repository_dispatch
+ 
+on:
+  repository_dispatch:
+    branches: [master]
+ 
+jobs:
+  receive-tag:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Receive Tag from Sample1
+        if: github.event.action == 'sample1_latestTag'
+        run: |
+          echo "Received SHA Value :  '${{ github.event.client_payload.sample1_latestTag }}'"
