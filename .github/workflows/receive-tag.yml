@@ -11,4 +11,4 @@ jobs:
       - name: Receive Tag from Sample1
         if: github.event.action == 'sample1_latestTag'
         run: |
-          echo "Received SHA Value :  '${{ github.event.client_payload.sample1_latestTag }}'"
+          echo "Received SHA Value: ${{ github.event.client_payload.sample1_latestTag }}"
