@@ -1,8 +1,8 @@
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-resources:
-  - ../../base/microservice/sample1
+bases:
+  - ../../base/
 patches:
   - ./patches/microservice/sample1/deployment.yaml
 images:
