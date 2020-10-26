@@ -4,26 +4,26 @@ on:
   repository_dispatch:
     branches: [master]
 jobs:
-  receive-tag-sample2:
+  receive-tag:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-          uses: actions/checkout@v2
+        uses: actions/checkout@v2
+
       - name: Updating the TAG for sample2
-          if: github.event.action == 'sample2_latestTag'
-          run: |
-          sed "s/sample2_LATEST/${{ github.event.client_payload.sample2_latestTag }}/g" ./Services/overlays/sandbox/kustomization_TEMPLATE.yaml > ./Services/overlays/sandbox/kustomization.yaml
+        if: github.event.action == 'sample2_latestTag'
+        run: |
+           sed "s/sample2_LATEST/${{ github.event.client_payload.sample2_latestTag }}/g" ./Services/overlays/sandbox/kustomization_TEMPLATE.yaml > ./Services/overlays/sandbox/kustomization.yaml
 
       - name: Add files
-          run: git add .
+        run: git add .
 
       - name: Commit files
-          run: |
+        run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git commit -am "Bump docker tag"
-
       - name: Push changes
-          uses: ad-m/github-push-action@master
-          with:
+        uses: ad-m/github-push-action@master
+        with:
           github_token: ${{ secrets.ACCESS_TOKEN }}
