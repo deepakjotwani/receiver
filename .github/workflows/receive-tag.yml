@@ -7,6 +7,9 @@ jobs:
   receive-tag:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
       - name: Updating the TAG
         if: github.event.action == 'sample1_latestTag'
-        run: cd Services
+        run: cd Services/overlays/sandbox
