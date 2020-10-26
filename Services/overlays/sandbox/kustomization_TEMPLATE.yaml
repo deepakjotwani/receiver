@@ -5,3 +5,8 @@ bases:
   - ../../base/
 patches:
   - ./patches/microservice/sample1/deployment.yaml
+images:
+  - name: sample1-image
+    newName: deepakjotwani/sample1
+    newTag: LATEST
+    
