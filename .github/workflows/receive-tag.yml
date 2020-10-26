@@ -16,7 +16,7 @@ jobs:
            sed "s/LATEST/${{ github.event.client_payload.sample1_latestTag }}/g" ./Services/overlays/sandbox/kustomization_TEMPLATE.yaml > ./Services/overlays/sandbox/kustomization.yaml
 
       - name: Add files
-        run: git add kustomization.yaml
+        run: git add .
 
       - name: Commit files
         run: |
