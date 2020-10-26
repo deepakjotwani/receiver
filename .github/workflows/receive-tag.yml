@@ -10,7 +10,8 @@ jobs:
       - name: Updating the TAG
         if: github.event.action == 'sample1_latestTag'
         run: |
-          sed "s/LATEST/${{ github.event.client_payload.sample1_latestTag }}/g" ./Services/overlays/sandbox/kustomization_TEMPLATE.yaml > kustomization.yaml
+          cd Services/overlays/sandbox
+          sed "s/LATEST/${{ github.event.client_payload.sample1_latestTag }}/g" kustomization_TEMPLATE.yaml > kustomization.yaml
 
       - name: Commit files
         run: |
