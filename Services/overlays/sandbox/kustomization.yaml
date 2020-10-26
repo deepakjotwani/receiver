@@ -8,7 +8,7 @@ patches:
 images:
   - name: sample1-image
     newName: deepakjotwani/sample1
-    newTag: fc3e5ff
+    newTag: sample1_LATEST
   - name: sample2-image
     newName: deepakjotwani/sample2
-    newTag: sample2_LATEST
+    newTag: f88f99c
