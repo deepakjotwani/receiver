@@ -9,4 +9,3 @@ images:
   - name: sample1-image
     newName: deepakjotwani/sample1
     newTag: LATEST
-    
