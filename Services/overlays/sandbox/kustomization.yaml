@@ -5,10 +5,4 @@ bases:
   - ../../base/
 patches:
   - ./patches/microservice/sample1/deployment.yaml
-images:
-  - name: sample1-image
-    newName: deepakjotwani/sample1
-    newTag: sample1_LATEST
-  - name: sample2-image
-    newName: deepakjotwani/sample2
-    newTag: f88f99c
+  - ./patches/microservice/sample2/deployment.yaml
