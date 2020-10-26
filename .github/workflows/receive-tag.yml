@@ -27,6 +27,9 @@ jobs:
           kustomize edit set image sample2-image=deepakjotwani/sample2:${{ github.event.client_payload.sample2_latestTag }}  
         #sed "s/sample2_LATEST/${{ github.event.client_payload.sample2_latestTag }}/g" ./Services/overlays/sandbox/kustomization_TEMPLATE.yaml > ./Services/overlays/sandbox/kustomization.yaml
 
+      - name: Remove Kustomize
+        run: rm kustomize
+
       - name: Add files
         run: git add .
 
@@ -35,6 +38,7 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git commit -am "Bump docker tag"
+
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
