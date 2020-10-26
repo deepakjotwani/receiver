@@ -15,6 +15,11 @@ jobs:
         run: |
            sed "s/sample1_LATEST/${{ github.event.client_payload.sample1_latestTag }}/g" ./Services/overlays/sandbox/kustomization_TEMPLATE.yaml > ./Services/overlays/sandbox/kustomization.yaml
 
+      - name: Updating the TAG for sample2
+        if: github.event.action == 'sample2_latestTag'
+        run: |
+           sed "s/sample2_LATEST/${{ github.event.client_payload.sample2_latestTag }}/g" ./Services/overlays/sandbox/kustomization_TEMPLATE.yaml > ./Services/overlays/sandbox/kustomization.yaml           
+
       - name: Add files
         run: git add .
 
