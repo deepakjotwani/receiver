@@ -8,5 +8,5 @@ resources:
 images:
 - name: sample1-image
   newName: deepakjotwani/sample1
-  newTag: "6227139"
+  newTag: 2488e1c
 - name: sample2-image
