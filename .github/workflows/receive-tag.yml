@@ -7,12 +7,16 @@ jobs:
   receive-tag:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
       - name: Updating the TAG
         if: github.event.action == 'sample1_latestTag'
         run: |
-          ls
-          # cd 
-          # sed "s/LATEST/${{ github.event.client_payload.sample1_latestTag }}/g" ./Services/overlays/sandbox/kustomization_TEMPLATE.yaml > kustomization.yaml
+           sed "s/LATEST/${{ github.event.client_payload.sample1_latestTag }}/g" ./Services/overlays/sandbox/kustomization_TEMPLATE.yaml > kustomization.yaml
+
+      - name: Add files
+        run: git add kustomization.yaml
 
       - name: Commit files
         run: |
