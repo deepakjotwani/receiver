@@ -3,16 +3,16 @@ name: Receive latest tag on repository_dispatch
 on:
   repository_dispatch:
 jobs:
-  receive-tag-sample1:
+  receive-tag-sample2:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
         uses: actions/checkout@v2
 
-    - name: Updating the TAG for sample1
-        if: github.event.action == 'sample1_latestTag'
+    - name: Updating the TAG for sample2
+        if: github.event.action == 'sample2_latestTag'
         run: |
-        sed "s/sample1_LATEST/${{ github.event.client_payload.sample1_latestTag }}/g" ./Services/overlays/sandbox/kustomization_TEMPLATE.yaml > ./Services/overlays/sandbox/kustomization.yaml
+        sed "s/sample2_LATEST/${{ github.event.client_payload.sample2_latestTag }}/g" ./Services/overlays/sandbox/kustomization_TEMPLATE.yaml > ./Services/overlays/sandbox/kustomization.yaml
 
     - name: Add files
         run: git add .
