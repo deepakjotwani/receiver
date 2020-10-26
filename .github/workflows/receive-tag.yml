@@ -9,6 +9,4 @@ jobs:
     steps:
       - name: Updating the TAG
         if: github.event.action == 'sample1_latestTag'
-        run: |
-          ls
-          pwd
+        run: cd Services
