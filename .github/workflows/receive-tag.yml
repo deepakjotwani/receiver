@@ -11,16 +11,4 @@ jobs:
         if: github.event.action == 'sample1_latestTag'
         run: |
           ls
-          # cd Services/overlays/sandbox
-          # sed "s/LATEST/${{ github.event.client_payload.sample1_latestTag }}/g" kustomization_TEMPLATE.yaml > kustomization.yaml
-
-      - name: Commit files
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git commit -am "Bump docker tag"
-
-      - name: Push changes
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.ACCESS_TOKEN }}
+          pwd
