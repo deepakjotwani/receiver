@@ -33,4 +33,4 @@ jobs:
           git config --local user.name "GitHub Action"        
           git checkout -b feature/Updating-${{ github.event.action }}
           git commit -am "Updating tag for '${{ github.event.action }}'"
-          git push origin
+           git push --set-upstream origin feature/Updating-${{ github.event.action }}
