@@ -23,7 +23,7 @@ jobs:
         if: github.event.action == 'sample2_latestTag'
         run: |
           cd Services/base
-          kustomize edit set image sample2-image=deepakjotwani/sample2:${{ github.event.client_payload.sample2_latestTag }}  
+          kustomize edit set image sample2-image=deepakjotwani/sample2:${{ github.event.client_payload.sample2_latestTag }}
 
       - name: Remove Kustomize
         run: rm kustomize
