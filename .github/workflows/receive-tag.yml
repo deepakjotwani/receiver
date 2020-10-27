@@ -27,13 +27,10 @@ jobs:
           cd Services/base
           kustomize edit set image sample2-image=deepakjotwani/sample2:${{ github.event.client_payload.sample2_latestTag }}
   
-      - name: Commit files
+      - name: Creation of feature Branch
         run: |
           git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
+          git config --local user.name "GitHub Action"        
+          git checkout -b feature/Updating-${{ github.event.action }}
           git commit -am "Bump docker tag"
-
-      - name: Push changes
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.ACCESS_TOKEN }}
+          git push origin
