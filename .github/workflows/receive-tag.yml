@@ -16,13 +16,13 @@ jobs:
           curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh"  | bash
 
       - name: Updating the TAG for sample1
-        if: github.event.action == 'sample1_latestTag'
+        if: github.event.action == 'sample1'
         run: |
           cd Services/base
           kustomize edit set image sample1-image=deepakjotwani/sample1:${{ github.event.client_payload.sample1_latestTag }}
 
       - name: Updating the TAG for sample2
-        if: github.event.action == 'sample2_latestTag'
+        if: github.event.action == 'sample2'
         run: |
           cd Services/base
           kustomize edit set image sample2-image=deepakjotwani/sample2:${{ github.event.client_payload.sample2_latestTag }}
@@ -32,5 +32,5 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"        
           git checkout -b feature/Updating-${{ github.event.action }}
-          git commit -am "Bump docker tag"
+          git commit -am "Updating tag for '${{ github.event.action }}'"
           git push origin
