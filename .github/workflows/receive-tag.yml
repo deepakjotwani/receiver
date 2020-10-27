@@ -18,14 +18,12 @@ jobs:
         run: |
           cd Services/base
           kustomize edit set image sample1-image=deepakjotwani/sample1:${{ github.event.client_payload.sample1_latestTag }}
-        #sed "s/sample1_LATEST/${{ github.event.client_payload.sample1_latestTag }}/g" ./Services/overlays/sandbox/kustomization_TEMPLATE.yaml > ./Services/overlays/sandbox/kustomization.yaml
 
       - name: Updating the TAG for sample2
         if: github.event.action == 'sample2_latestTag'
         run: |
           cd Services/base
           kustomize edit set image sample2-image=deepakjotwani/sample2:${{ github.event.client_payload.sample2_latestTag }}  
-        #sed "s/sample2_LATEST/${{ github.event.client_payload.sample2_latestTag }}/g" ./Services/overlays/sandbox/kustomization_TEMPLATE.yaml > ./Services/overlays/sandbox/kustomization.yaml
 
       - name: Remove Kustomize
         run: rm kustomize
