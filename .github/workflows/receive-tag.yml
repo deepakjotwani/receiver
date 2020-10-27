@@ -30,9 +30,6 @@ jobs:
       - name: Remove Kustomize
         run: rm kustomize
 
-      - name: Add files
-        run: git add .
-
       - name: Commit files
         run: |
           git config --local user.email "action@github.com"
