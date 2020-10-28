@@ -34,4 +34,4 @@ jobs:
           git checkout -b feature/Updating-${{ github.event.action }}
           git commit -am "Updating tag for '${{ github.event.action }}'"
           git push --set-upstream origin feature/Updating-${{ github.event.action }}
-          hub pull-request -m "feat: Updating tag for '${{ github.event.action }}'" -b GitHubAction:master -h GitHubAction:feature/Updating-${{ github.event.action }}
+          hub pull-request
