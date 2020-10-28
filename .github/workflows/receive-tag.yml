@@ -27,14 +27,11 @@ jobs:
           cd Services/base
           kustomize edit set image sample2-image=deepakjotwani/sample2:${{ github.event.client_payload.sample2_latestTag }}
   
-      - name: Creating Feature Branch
+      - name: Creating Feature Branch & Raising a PR
         run: |
           git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"        
+          git config --local user.name "GitHubAction"        
           git checkout -b feature/Updating-${{ github.event.action }}
           git commit -am "Updating tag for '${{ github.event.action }}'"
           git push --set-upstream origin feature/Updating-${{ github.event.action }}
-
-      - name: Raising a PR for Master
-        run: |
           hub pull-request -m "feat: Updating tag for '${{ github.event.action }}'" -b GitHubAction:master -h GitHubAction:feature/Updating-${{ github.event.action }}
