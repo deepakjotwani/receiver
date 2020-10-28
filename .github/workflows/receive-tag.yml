@@ -36,6 +36,6 @@ jobs:
           git push --set-upstream origin feature/Updating-${{ github.event.action }}
 
       - name: Creating a PR
-        run: hub pull-request -m "feat:Updating tag for '${{ github.event.action }}'" -b master -h feature/Updating-${{ github.event.action }}
+        run: hub pull-request -m "feat:Updating tag for ${{ github.event.action }}" -b master -h feature/Updating-${{ github.event.action }}
         env:
           GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
