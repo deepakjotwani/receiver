@@ -25,13 +25,13 @@ jobs:
         if: github.event.action == 'sample1'
         run: |
           cd Services/base
-          kustomize edit set image sample1-image=${{ github.event.client_payload.sample1_imageName }}:${{ github.event.client_payload.latestTag }}
+          kustomize edit set image sample1-image=${{ github.event.client_payload.imageName }}:${{ github.event.client_payload.latestTag }}
 
       - name: Updating the TAG for sample2
         if: github.event.action == 'sample2'
         run: |
           cd Services/base
-          kustomize edit set image sample2-image=${{ github.event.client_payload.sample2_imageName }}:${{ github.event.client_payload.latestTag }}
+          kustomize edit set image sample2-image=${{ github.event.client_payload.imageName }}:${{ github.event.client_payload.latestTag }}
   
       - name: Pushing changes to feature branch
         run: |       
