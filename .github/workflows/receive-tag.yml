@@ -36,9 +36,9 @@ jobs:
       - name: Pushing changes to feature branch
         run: |       
           git commit -am "Updating tag for '${{ github.event.action }}'"
-          git push --set-upstream origin feature/Updating-${{ github.event.action }}
+          git push --set-upstream origin feature/Updating-${{ github.event.action }}-tag-${{ github.event.client_payload.latestTag }}
 
       - name: Creating a PR
-        run: hub pull-request -m "feat:Updating tag for ${{ github.event.action }}" -b master -h feature/Updating-${{ github.event.action }}-tag-${GITHUB_SHA::7}
+        run: hub pull-request -m "feat:Updating tag for ${{ github.event.action }}" -b master -h feature/Updating-${{ github.event.action }}-tag-${{ github.event.client_payload.latestTag }}
         env:
           GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
