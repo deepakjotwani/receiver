@@ -10,6 +10,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Creating Feature Branch
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"        
+          git checkout -b feature/Updating-${{ github.event.action }}-tag-${GITHUB_SHA::7}         
+
       - name: Setup Kustomize
         run: |
           cd /tmp
@@ -19,23 +25,20 @@ jobs:
         if: github.event.action == 'sample1'
         run: |
           cd Services/base
-          kustomize edit set image sample1-image=deepakjotwani/sample1:${{ github.event.client_payload.sample1_latestTag }}
+          kustomize edit set image sample1-image=${{ github.event.client_payload.sample1_imageName }}:${{ github.event.client_payload.sample1_latestTag }}
 
       - name: Updating the TAG for sample2
         if: github.event.action == 'sample2'
         run: |
           cd Services/base
-          kustomize edit set image sample2-image=deepakjotwani/sample2:${{ github.event.client_payload.sample2_latestTag }}
+          kustomize edit set image sample2-image=${{ github.event.client_payload.sample2_imageName }}:${{ github.event.client_payload.sample2_latestTag }}
   
-      - name: Creating Feature Branch
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHubAction"        
-          git checkout -b feature/Updating-${{ github.event.action }}
+      - name: Pushing changes to feature branch
+        run: |       
           git commit -am "Updating tag for '${{ github.event.action }}'"
           git push --set-upstream origin feature/Updating-${{ github.event.action }}
 
       - name: Creating a PR
-        run: hub pull-request -m "feat:Updating tag for ${{ github.event.action }}" -b master -h feature/Updating-${{ github.event.action }}
+        run: hub pull-request -m "feat:Updating tag for ${{ github.event.action }}" -b master -h feature/Updating-${{ github.event.action }}-tag-${GITHUB_SHA::7}
         env:
           GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
