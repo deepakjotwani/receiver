@@ -20,17 +20,10 @@ jobs:
           cd /tmp
           curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh"  | bash
 
-      - name: Updating the TAG for sample1
-        if: github.event.action == 'sample1'
+      - name: Updating the TAG
         run: |
           cd Services/base
-          kustomize edit set image sample1-image=${{ github.event.client_payload.imageName }}:${{ github.event.client_payload.latestTag }}
-
-      - name: Updating the TAG for sample2
-        if: github.event.action == 'sample2'
-        run: |
-          cd Services/base
-          kustomize edit set image sample2-image=${{ github.event.client_payload.imageName }}:${{ github.event.client_payload.latestTag }}
+          kustomize edit set image ${{ github.event.client_payload.microserviceImage }}=${{ github.event.client_payload.imageName }}:${{ github.event.client_payload.latestTag }}
   
       - name: Pushing changes to feature branch
         run: |       
