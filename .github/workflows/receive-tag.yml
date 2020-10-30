@@ -4,6 +4,7 @@ on:
   repository_dispatch:
 jobs:
   receive-tag:
+    if: github.event.action == 'update_tag'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -13,7 +14,7 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"        
-          git checkout -b feature/Updating-${{ github.event.action }}-tag-${{ github.event.client_payload.latestTag }}
+          git checkout -b feature/Updating-${{ github.event.client_payload.microserviceImage }}-tag-${{ github.event.client_payload.latestTag }}
 
       - name: Setup Kustomize
         run: |
@@ -27,8 +28,8 @@ jobs:
   
       - name: Pushing changes to feature branch
         run: |       
-          git commit -am "Updating tag for '${{ github.event.action }}'"
-          git push origin feature/Updating-${{ github.event.action }}-tag-${{ github.event.client_payload.latestTag }}
+          git commit -am "Updating tag for '${{ github.event.client_payload.microserviceImage }}'"
+          git push origin feature/Updating-${{ github.event.client_payload.microserviceImage }}-tag-${{ github.event.client_payload.latestTag }}
 
       - name: Creating a PR
         run: hub pull-request -m "feat:Updating tag for ${{ github.event.action }}" -b master -h feature/Updating-${{ github.event.action }}-tag-${{ github.event.client_payload.latestTag }}
