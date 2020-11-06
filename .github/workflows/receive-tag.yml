@@ -12,8 +12,8 @@ jobs:
 
       - name: Creating Feature Branch
         run: |
-          git config --global user.name ${{ github.event.client_payload.commitUserName }}
-          git config --global user.email ${{ github.event.client_payload.commitEmail }}       
+          git config ${{ github.event.client_payload.commitUserName }}
+          git config ${{ github.event.client_payload.commitEmail }}       
           git checkout -b feature/Updating-${{ github.event.client_payload.microserviceImage }}-tag-${{ github.event.client_payload.latestTag }}
 
       - name: Setup Kustomize
@@ -28,7 +28,7 @@ jobs:
   
       - name: Pushing changes to feature branch
         run: |       
-          git commit -S -am "Updating tag for '${{ github.event.client_payload.microserviceImage }}'"
+          git commit -am "Updating tag for '${{ github.event.client_payload.microserviceImage }}'"
           git push origin feature/Updating-${{ github.event.client_payload.microserviceImage }}-tag-${{ github.event.client_payload.latestTag }}
 
       - name: Creating a PR
