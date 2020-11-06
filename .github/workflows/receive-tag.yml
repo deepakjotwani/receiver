@@ -28,7 +28,7 @@ jobs:
   
       - name: Pushing changes to feature branch
         run: |       
-          git commit -am "Updating tag for '${{ github.event.client_payload.microserviceImage }}'"
+          git commit -S -am "Updating tag for '${{ github.event.client_payload.microserviceImage }}'"
           git push origin feature/Updating-${{ github.event.client_payload.microserviceImage }}-tag-${{ github.event.client_payload.latestTag }}
 
       - name: Creating a PR
