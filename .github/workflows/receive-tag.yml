@@ -27,8 +27,9 @@ jobs:
           kustomize edit set image ${{ github.event.client_payload.microserviceImage }}=${{ github.event.client_payload.imageName }}:${{ github.event.client_payload.latestTag }}
   
       - name: Pushing changes to feature branch
-        run: |       
-          git commit -am "Updating tag for '${{ github.event.client_payload.microserviceImage }}'"
+        run: |      
+          git add . 
+          git commit -m -S "Updating tag for '${{ github.event.client_payload.microserviceImage }}'"
           git push origin feature/Updating-${{ github.event.client_payload.microserviceImage }}-tag-${{ github.event.client_payload.latestTag }}
 
       - name: Creating a PR
