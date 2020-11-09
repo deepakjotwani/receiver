@@ -12,6 +12,8 @@ jobs:
 
       - name: Creating Feature Branch
         run: | 
+          git config --local user.email ${{ github.event.client_payload.commitEmail }}
+          git config --local user.name ${{ github.event.client_payload.commitUserName }} 
           git config user.signingkey ${{ secrets.GPG_KEY_ID }} 
           git checkout -b feature/Updating-${{ github.event.client_payload.microserviceImage }}-tag-${{ github.event.client_payload.latestTag }}
 
