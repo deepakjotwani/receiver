@@ -29,11 +29,13 @@ jobs:
       - name: Commiting changes to feature branch
         run: |
           export FEATURE_SHA=$(curl https://api.github.com/repos/deepakjotwani/receiver/git/ref/heads/feature/Updating-${{ github.event.client_payload.microserviceImage }}-tag-${{ github.event.client_payload.latestTag }} -u ${{ secrets.ACCESS_TOKEN }} | jq -r '.object.sha')
-          export TREE_SHA=$(curl  https://api.github.com/repos/deepakjotwani/receiver/git/commits/$FEATURE_SHA -u ${{ secrets.ACCESS_TOKEN }} | jq -r '.tree.sha')
+          export TREE_SHA=$(curl https://api.github.com/repos/deepakjotwani/receiver/git/commits/$FEATURE_SHA -u ${{ secrets.ACCESS_TOKEN }} | jq -r '.tree.sha')
+          echo $FEATURE_SHA $TREE_SHA
+
           curl -X POST https://api.github.com/repos/deepakjotwani/receiver/git/commits \
           -H 'Accept: application/json' \
           -u ${{ secrets.ACCESS_TOKEN }} \
-          --data '{"message": "Updating tag for ${{ github.event.client_payload.microserviceImage }}","committer": {"name": "${{ github.event.client_payload.commitUserName }}", "email": "${{ github.event.client_payload.commitEmail }}"}, "parents": [] ,"tree": "'$TREE_SHA'"}'
+          --data '{"message": "Updating tag for ${{ github.event.client_payload.microserviceImage }}","committer": {"name": "${{ github.event.client_payload.commitUserName }}", "email": "${{ github.event.client_payload.commitEmail }}"}, "parents": [] ,"tree": "'"$TREE_SHA"'"}'
 
       - name: Pushing changes to feature branch
         run: |       
