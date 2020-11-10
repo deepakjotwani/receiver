@@ -12,8 +12,8 @@ jobs:
 
       - name: Creating Feature Branch
         run: | 
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git config --global user.name "github-actions[bot]"
+          git config --global user.email "${{ github.event.client_payload.commitEmail }}"
+          git config --global user.name "${{ github.event.client_payload.commitUserName }}"
           git checkout -b feature/Updating-${{ github.event.client_payload.microserviceImage }}-tag-${{ github.event.client_payload.latestTag }}
 
       - name: Setup Kustomize
@@ -26,10 +26,16 @@ jobs:
           cd Services/base
           kustomize edit set image ${{ github.event.client_payload.microserviceImage }}=${{ github.event.client_payload.imageName }}:${{ github.event.client_payload.latestTag }}
   
+      - name: Commiting changes to feature branch
+        run: |
+          curl -X POST https://api.github.com/repos/deepakjotwani/git/commits \
+          -H 'Accept: application/json' \
+          -u ${{ secrets.ACCESS_TOKEN }} \
+          --data '{"message": "Updating tag for '${{ github.event.client_payload.microserviceImage }}'","author": {"name": "'${{ github.event.client_payload.commitEmail }}'", "email": "'${{ github.event.client_payload.commitUserName }}'", "parents": [] },"tree": "'${GITHUB_SHA}'"}'
+
       - name: Pushing changes to feature branch
         run: |       
-          git commit -am "Updating tag for '${{ github.event.client_payload.microserviceImage }}'"
-          git push origin feature/Updating-${{ github.event.client_payload.microserviceImage }}-tag-${{ github.event.client_payload.latestTag }}
+          git push origin feature/Updating-${{ github.event.client_payload.microserviceImage }}-tag-${{ github.event.client_payload.latestTag }}          
 
       - name: Creating a PR
         run: hub pull-request -m "feat:Updating tag for ${{ github.event.client_payload.microserviceImage }}" -b master -h feature/Updating-${{ github.event.client_payload.microserviceImage }}-tag-${{ github.event.client_payload.latestTag }}
