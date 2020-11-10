@@ -28,7 +28,7 @@ jobs:
   
       - name: Commiting changes to feature branch
         run: |
-          curl https://api.github.com/repos/deepakjotwani/receiver/git/ref/heads/feature/Updating-${{ github.event.client_payload.microserviceImage }}-tag-${{ github.event.client_payload.latestTag }} -u ${{ secrets.ACCESS_TOKEN }} | jq -r '.object.sha'
+          curl https://api.github.com/repos/deepakjotwani/receiver/git/ref/heads/master -u ${{ secrets.ACCESS_TOKEN }} | jq -r '.object.sha'
           curl https://api.github.com/repos/deepakjotwani/receiver/git/commits/$FEATURE_SHA -u ${{ secrets.ACCESS_TOKEN }} | jq -r '.tree.sha'
           echo $FEATURE_SHA $TREE_SHA
 
