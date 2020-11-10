@@ -28,8 +28,8 @@ jobs:
   
       - name: Commiting changes to feature branch
         run: |
-          export FEATURE_SHA=$(curl https://api.github.com/repos/deepakjotwani/receiver/git/ref/heads/feature/Updating-${{ github.event.client_payload.microserviceImage }}-tag-${{ github.event.client_payload.latestTag }} -u ${ACCESS_TOKEN} | jq -r '.object.sha')
-          export TREE_SHA=$(curl  https://api.github.com/repos/deepakjotwani/receiver/git/commits/$FEATURE_SHA -u ${ACCESS_TOKEN} | jq -r '.tree.sha')
+          export FEATURE_SHA=$(curl https://api.github.com/repos/deepakjotwani/receiver/git/ref/heads/feature/Updating-${{ github.event.client_payload.microserviceImage }}-tag-${{ github.event.client_payload.latestTag }} -u ${{ secrets.ACCESS_TOKEN }} | jq -r '.object.sha')
+          export TREE_SHA=$(curl  https://api.github.com/repos/deepakjotwani/receiver/git/commits/$FEATURE_SHA -u ${{ secrets.ACCESS_TOKEN }} | jq -r '.tree.sha')
           curl -X POST https://api.github.com/repos/deepakjotwani/receiver/git/commits \
           -H 'Accept: application/json' \
           -u ${{ secrets.ACCESS_TOKEN }} \
