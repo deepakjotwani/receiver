@@ -33,7 +33,7 @@ jobs:
           curl -X POST https://api.github.com/repos/deepakjotwani/receiver/git/commits \
           -H 'Accept: application/json' \
           -u ${{ secrets.ACCESS_TOKEN }} \
-          --data '{"message": "Updating tag for ${{ github.event.client_payload.microserviceImage }}","committer": {"name": "${{ github.event.client_payload.commitUserName }}", "email": "${{ github.event.client_payload.commitEmail }}"}, "parents": [] ,"tree": "'"$TREE_SHA"'"}'
+          --data '{"message": "Updating tag for ${{ github.event.client_payload.microserviceImage }}","committer": {"name": "${{ github.event.client_payload.commitUserName }}", "email": "${{ github.event.client_payload.commitEmail }}"}, "parents": [] ,"tree": "'$TREE_SHA'"}'
 
       - name: Pushing changes to feature branch
         run: |       
