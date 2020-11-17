@@ -28,7 +28,7 @@ jobs:
 
       - name: Importing the key
         run: |
-          echo $GPG_PRIVATE_KEY > /tmp/pgp.key
+          echo $GPG_PRIVATE_KEY -w 0 > /tmp/pgp.key
         shell: bash
         env:
           GPG_PRIVATE_KEY : ${{secrets.GPG_PRIVATE_KEY}}
