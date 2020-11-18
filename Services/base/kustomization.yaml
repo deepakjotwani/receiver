@@ -8,7 +8,7 @@ resources:
 images:
 - name: sample1-image
   newName: deepakjotwani/sample1
-  newTag: 829348b
+  newTag: 217d9fe
 - name: sample2-image
   newName: deepakjotwani/sample2
   newTag: f16c679
