@@ -14,6 +14,8 @@ jobs:
         run: |
           if [[ ${{ github.event.client_payload.latestTag }} =~ ^[0-9a-f]{7,40}$ && ${{ github.event.client_payload.microserviceImage }} =~ ^[a-zA-Z0-9-]+$ && ${{ github.event.client_payload.imageName }} =~ [0-9A-Za-z/\s-\s.] ]]; then
           echo "Inputs are valid"
+          else
+          exit 1
           fi
 
       # - name: Creating Feature Branch
