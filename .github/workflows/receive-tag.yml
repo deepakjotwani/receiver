@@ -10,12 +10,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Validating the input
-        run: |
-          if [[ ${{ github.event.client_payload.latestTag }} =~ "\b[0-9a-f]{5,40}\b" ]]; then
-          echo "valid Inputs"
-          else
-          exit 1
+      - if: ${{ github.event.client_payload.latestTag }} =~ "\b[0-9a-f]{5,40}\b"
+        name: Validating the input
+        run : |
+          echo ${{ github.event.client_payload.latestTag }}
           echo ${{ github.event.client_payload.microserviceImage }}
           echo ${{ github.event.client_payload.imageName }}
           
