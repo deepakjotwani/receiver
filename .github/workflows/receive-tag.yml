@@ -12,6 +12,8 @@ jobs:
 
       - if: ${{ github.event.client_payload.latestTag }} =~ "\b[0-9a-f]{5,40}\b" && echo ${{ github.event.client_payload.microserviceImage }} =~ "[a-zA-Z\-]" && echo ${{ github.event.client_payload.imageName }} =~ "[a-zA-Z\-\.\/]"
         name: Validating the input
+        run: |
+          echo "Inputs are valid"
 
       - name: Creating Feature Branch
         run: | 
