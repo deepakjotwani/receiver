@@ -12,7 +12,7 @@ jobs:
 
       - name: Validating the input
         run: |
-          if [[ ${{ github.event.client_payload.latestTag }} =~ "\b[0-9a-f]{5,40}\b" && ${{ github.event.client_payload.microserviceImage }} =~ "[a-zA-Z\-]" && ${{ github.event.client_payload.imageName }} =~ "[a-zA-Z\-\.\/]" ]]; then
+          if [[ ${{ github.event.client_payload.latestTag }} =~ ^[0-9a-f]{5,40}$ && ${{ github.event.client_payload.microserviceImage }} =~ ^[a-zA-Z\-]$ && ${{ github.event.client_payload.imageName }} =~ ^[a-zA-Z\-\.\/]$ ]]; then
           echo "Inputs are valid"
           fi
 
