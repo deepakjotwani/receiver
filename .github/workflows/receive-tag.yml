@@ -10,6 +10,16 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Validating the input
+        run: |
+          if [[ ${{ github.event.client_payload.latestTag }} =~ "\b[0-9a-f]{5,40}\b" ]]; then
+          echo "valid Inputs"
+          else
+          exit 1
+          echo ${{ github.event.client_payload.microserviceImage }}
+          echo ${{ github.event.client_payload.imageName }}
+          
+
       - name: Creating Feature Branch
         run: | 
           git config --global user.email "dpkjotwani12@gmail.com"
