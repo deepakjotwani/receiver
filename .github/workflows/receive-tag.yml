@@ -12,7 +12,7 @@ jobs:
 
       - name: Validating the input
         run: |
-          if [[ ${{ github.event.client_payload.latestTag }} =~ ^[0-9a-f]{7,40}$ && ${{ github.event.client_payload.microserviceImage }} =~ ^[a-zA-Z0-9-]+$ && ${{ github.event.client_payload.imageName }} =~ [0-9A-Za-z/\s-\s.] ]]; then
+          if [[ ${{ github.event.client_payload.latestTag }} =~ ^[0-9a-f]{7,40}$ && ${{ github.event.client_payload.microserviceImage }} =~ ^[a-zA-Z0-9-]+$ && ${{ github.event.client_payload.imageName }} =~ ^[0-9A-Za-z/\s-\s.]$ ]]; then
           echo "Inputs received are valid"
           else
           echo "Inputs received are invalid"
@@ -25,16 +25,15 @@ jobs:
           git config --global user.name "deepakjotwani"
           git checkout -b feature/Updating-${{ github.event.client_payload.microserviceImage }}-tag-${{ github.event.client_payload.latestTag }}
 
-      # - name: Setup Kustomize
-      #   run: |
-      #     cd /tmp
-      #     curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh"  | bash
+      - name: Setup Kustomize
+        run: |
+          cd /tmp
+          curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh"  | bash
 
       - name: Updating the TAG
         run: |
           cd Services/base
-          docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-          docker run deepakjotwani/kustomize:latest kustomize edit set image ${{ github.event.client_payload.microserviceImage }}=${{ github.event.client_payload.imageName }}:${{ github.event.client_payload.latestTag }}
+          kustomize edit set image ${{ github.event.client_payload.microserviceImage }}=${{ github.event.client_payload.imageName }}:${{ github.event.client_payload.latestTag }}
 
       - name: Importing the key
         run: |
