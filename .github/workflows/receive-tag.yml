@@ -34,7 +34,7 @@ jobs:
         run: |
           cd Services/base
           docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-          docker run -it deepakjotwani/kustomize:latest kustomize edit set image ${{ github.event.client_payload.microserviceImage }}=${{ github.event.client_payload.imageName }}:${{ github.event.client_payload.latestTag }}
+          docker run deepakjotwani/kustomize:latest kustomize edit set image ${{ github.event.client_payload.microserviceImage }}=${{ github.event.client_payload.imageName }}:${{ github.event.client_payload.latestTag }}
 
       - name: Importing the key
         run: |
