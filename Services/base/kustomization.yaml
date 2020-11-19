@@ -9,6 +9,9 @@ images:
 - name: sample1-image
   newName: deepakjotwani/sample1
   newTag: 217d9fe
+- name: sample1-image1
+  newName: deepakjotwani/sample1
+  newTag: 93abeea
 - name: sample2-image
   newName: deepakjotwani/sample2
   newTag: f16c679
