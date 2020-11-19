@@ -25,15 +25,16 @@ jobs:
           git config --global user.name "deepakjotwani"
           git checkout -b feature/Updating-${{ github.event.client_payload.microserviceImage }}-tag-${{ github.event.client_payload.latestTag }}
 
-      - name: Setup Kustomize
-        run: |
-          cd /tmp
-          curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh"  | bash
+      # - name: Setup Kustomize
+      #   run: |
+      #     cd /tmp
+      #     curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh"  | bash
 
       - name: Updating the TAG
-        run: |
-          cd Services/base
-          kustomize edit set image ${{ github.event.client_payload.microserviceImage }}=${{ github.event.client_payload.imageName }}:${{ github.event.client_payload.latestTag }}
+        working-directory: ./Services/base
+        uses: docker://deepakjotwani/kustomize:latest
+        with:
+          args: kustomize edit set image ${{ github.event.client_payload.microserviceImage }}=${{ github.event.client_payload.imageName }}:${{ github.event.client_payload.latestTag }}
 
       - name: Importing the key
         run: |
