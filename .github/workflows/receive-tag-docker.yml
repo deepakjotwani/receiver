@@ -22,3 +22,8 @@ jobs:
           docker run deepakjotwani/kustomize:latest ${{ secrets.ACCESS_TOKEN }} ${{ github.event.client_payload.microserviceImage }} ${{ github.event.client_payload.imageName }} ${{ github.event.client_payload.latestTag }} "$GPG_PRIVATE_KEY"
         env:
           GPG_PRIVATE_KEY : ${{secrets.GPG_PRIVATE_KEY}}
+
+      - name: Creating a PR
+        run: hub pull-request -m "feat:Updating tag for ${{ github.event.client_payload.microserviceImage }}" -b master -h feature/Updating-${{ github.event.client_payload.microserviceImage }}-tag-${{ github.event.client_payload.latestTag }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}          
