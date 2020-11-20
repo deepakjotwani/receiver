@@ -27,6 +27,7 @@ jobs:
 
       - name: Updating the TAG
         run: |
+          chown -R deepak:deepak /$GITHUB_WORKSPACE/Services/base
           docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
           docker run -v $GITHUB_WORKSPACE/Services/base/:/kustomize deepakjotwani/kustomize:latest kustomize edit set image ${{ github.event.client_payload.microserviceImage }}=${{ github.event.client_payload.imageName }}:${{ github.event.client_payload.latestTag }}
 
