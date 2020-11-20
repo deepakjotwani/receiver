@@ -18,7 +18,7 @@ jobs:
 
       - name: Running Docker image
         run: | 
-          docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+          docker login -u deepakjotwani -p ${{ secrets.DOCKER_PASSWORD }}
           docker run docker run deepakjotwani/kustomize:latest ${{ secrets.ACCESS_TOKEN }} ${{ github.event.client_payload.microserviceImage }} ${{ github.event.client_payload.imageName }} ${{ github.event.client_payload.latestTag }} "$GPG_PRIVATE_KEY"
         env:
           GPG_PRIVATE_KEY : ${{secrets.GPG_PRIVATE_KEY}}
