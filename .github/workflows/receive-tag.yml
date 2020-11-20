@@ -32,6 +32,7 @@ jobs:
 
       - name: Updating the TAG
         run: |
+          echo $PATH
           cd Services/base
           readlink -f kustomization.yaml
 # kustomize edit set image ${{ github.event.client_payload.microserviceImage }}=${{ github.event.client_payload.imageName }}:${{ github.event.client_payload.latestTag }}
