@@ -4,6 +4,9 @@ kind: Deployment
 metadata:
   name: sample2-deployment
 spec:
+  selector:
+    matchLabels:
+      app: sample1
   replicas: 2
   template:
     spec:
