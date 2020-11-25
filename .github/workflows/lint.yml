@@ -18,6 +18,5 @@ jobs:
           VALIDATE_DOCKERFILE_HADOLINT: true
           VALIDATE_KUBERNETES_KUBEVAL: true
           VALIDATE_YAML: true
-          YAML_CONFIG_FILE: true
           DEFAULT_BRANCH: master
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
