@@ -27,7 +27,7 @@ jobs:
 
       - name: Updating the TAG
         run: |
-          docker pull 
+          docker pull k8s.gcr.io/kustomize/kustomize:v3.8.7
           docker run -v $GITHUB_WORKSPACE/Services/base/:/ k8s.gcr.io/kustomize/kustomize:v3.8.7 edit set image ${{ github.event.client_payload.microserviceImage }}=${{ github.event.client_payload.imageName }}:${{ github.event.client_payload.latestTag }}
 
       - name: Importing the key
