@@ -4,7 +4,7 @@ on:
   repository_dispatch:
 jobs:
   receive-tag:
-    if: github.event.action == 'update_tag'
+    if: github.event.action == 'update-tag'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
