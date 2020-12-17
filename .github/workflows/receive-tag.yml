@@ -12,7 +12,7 @@ jobs:
 
       - name: Validating the input
         run: |
-          if [[ ${{ github.event.client_payload.latestTag }} =~ ^[0-9a-f]{7,40}$ && ${{ github.event.client_payload.microserviceImage }} =~ ^[a-zA-Z0-9-]+$ && ${{ github.event.client_payload.imageName }} =~ ^[0-9A-Za-z/\s-\s.]+$ ]]; then
+          if [[ ${{ github.event.client_payload.latestTag }} =~ ^[0-9a-f]{7,40}$ && ${{ github.event.client_payload.imageName }} =~ ^[a-zA-Z0-9-]+$ && ${{ github.event.client_payload.serviceName }} =~ ^[a-zA-Z0-9-]+$ && ${{ github.event.client_payload.imagePath }} =~ ^[0-9A-Za-z/\s-\s.]+$ ]]; then
           echo "Inputs received are valid"
           else
           echo "Inputs received are invalid"
@@ -23,7 +23,7 @@ jobs:
         run: | 
           git config --global user.email "dpkjotwani12@gmail.com"
           git config --global user.name "deepakjotwani"
-          git checkout -b feature/Updating-${{ github.event.client_payload.microserviceImage }}-tag-${{ github.event.client_payload.latestTag }}
+          git checkout -b feature/Updating-${{ github.event.client_payload.imageName }}-tag-${{ github.event.client_payload.latestTag }}
 
       - name: Updating the TAG
         run: |
@@ -37,13 +37,13 @@ jobs:
         env:
           GPG_PRIVATE_KEY : ${{secrets.GPG_PRIVATE_KEY}}
 
-      - name: Commiting & Pushing changes to feature branch
+      - name: Commiting Pushing changes to feature branch
         run: |
-          git commit -S -am "Updating tag for ${{ github.event.client_payload.microserviceImage }}"
-          git push origin feature/Updating-${{ github.event.client_payload.microserviceImage }}-tag-${{ github.event.client_payload.latestTag }}          
+          git commit -S -am "Updating tag for ${{ github.event.client_payload.serviceName }}"
+          git push origin feature/Updating-${{ github.event.client_payload.imageName }}-tag-${{ github.event.client_payload.latestTag }}
 
       - name: Creating a PR
-        run: hub pull-request -m "feat:Updating tag for ${{ github.event.client_payload.microserviceImage }}" -b master -h feature/Updating-${{ github.event.client_payload.microserviceImage }}-tag-${{ github.event.client_payload.latestTag }}
+        run: hub pull-request -m "feat:Updating tag for ${{ github.event.client_payload.serviceName }}" -b master -h feature/Updating-${{ github.event.client_payload.imageName }}-tag-${{ github.event.client_payload.latestTag }}
         env:
           GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
 
